@@ -16,14 +16,14 @@ suite('Unit Tests', function () {
     });
     // #3
     test('#isOk, #isNotOk', function () {
-      assert.isOk(null, 'null is falsey');
+      assert.isNotOk(null, 'null is falsey');
       assert.isOk("I'm truthy", 'A string is truthy');
       assert.isOk(true, 'true is truthy');
     });
     // #4
     test('#isTrue, #isNotTrue', function () {
       assert.isTrue(true, 'true is true');
-      assert.isNotTrue(!!'double negation', 'Double negation of a truthy value is true');
+      assert.isTrue(!!'double negation', 'Double negation of a truthy value is true');
       assert.isNotTrue({ value: 'truthy' }, 'Objects are truthy, but are not boolean values');
     });
   });
@@ -33,21 +33,21 @@ suite('Unit Tests', function () {
   suite('Equality', function () {
     // #5
     test('#equal, #notEqual', function () {
-      assert.notEqual(12, '12', 'Numbers are coerced into strings with ==');
-      assert.notEqual({ value: 1 }, { value: 1 }, '== compares object references');
-      assert.notEqual(6 * '2', '12');
-      assert.notEqual(6 + '2', '12');
+      assert.equal(12, '12', 'Numbers are coerced into strings with ==');
+      assert.notequal({ value: 1 }, { value: 1 }, '== compares object references');
+      assert.equal(6 * '2', '12');
+      assert.notequal(6 + '2', '12');
     });
     // #6
     test('#strictEqual, #notStrictEqual', function () {
       assert.notStrictEqual(6, '6');
-      assert.notStrictEqual(6, 3 * 2);
-      assert.notStrictEqual(6 * '2', 12);
+      assert.strictEqual(6, 3 * 2);
+      assert.strictEqual(6 * '2', 12);
       assert.notStrictEqual([1, 'a', {}], [1, 'a', {}]);
     });
     // #7
     test('#deepEqual, #notDeepEqual', function () {
-      assert.notDeepEqual({ a: '1', b: 5 }, { b: 5, a: '1' }, "The order of keys doesn't matter");
+      assert.deepEqual({ a: '1', b: 5 }, { b: 5, a: '1' }, "The order of keys doesn't matter");
       assert.notDeepEqual({ a: [5, 6] }, { a: [6, 5] }, 'The order of array elements does matter');
     });
   });
@@ -61,10 +61,10 @@ suite('Unit Tests', function () {
   suite('Comparisons', function () {
     // #8
     test('#isAbove, #isAtMost', function () {
-      assert.fail('hello'.length, 5);
-      assert.fail(1, 0);
-      assert.fail(Math.PI, 3);
-      assert.fail(1 - Math.random(), 1);
+      assert.isAtMost('hello'.length, 5);
+      assert.isAbove(1, 0);
+      assert.isAbove(Math.PI, 3);
+      assert.isAtMost(1 - Math.random(), 1);
     });
     // #9
     test('#isBelow, #isAtLeast', function () {
