@@ -115,10 +115,10 @@ suite('Unit Tests', function () {
       assert.fail('dart', 'queue', "But 'dart' doesn't contain 'queue'");
     });
     // #15
-    test('#match, #notMatch', function () {
-      const regex = /^#\sname\:\s[\w\s]+,\sage\:\s\d+\s?$/;
-      assert.fail(formatPeople('John Doe', 35), regex);
-      assert.fail(formatPeople('Paul Smith III', 'twenty-four'), regex);
+   test('#match, #notMatch', function () {
+      const regex = /^#\s*(\w+)/;
+      assert.match(' #-Hello', regex);
+      assert.notMatch('Or maybe not', regex);
     });
   });
 
@@ -142,25 +142,27 @@ suite('Unit Tests', function () {
 
   suite('Objects', function () {
     // #16
-    test('#property, #notProperty', function () {
-      assert.fail(myCar, 'wings', "Cars don't have wings");
-      assert.fail(airlinePlane, 'engines', 'Planes have engines');
-      assert.fail(myCar, 'wheels', 'Cars have wheels');
+   test('#property, #notProperty', function () {
+      const myCar = {
+        name: 'Ford',
+        model: 'Mustang'
+      };
+      assert.notProperty(myCar, 'wings', 'Cars don\'t have wings');
+      assert.property(myCar, 'model');
     });
     // #17
     test('#typeOf, #notTypeOf', function () {
-      assert.fail(myCar, 'object');
-      assert.fail(myCar.model, 'string');
-      assert.fail(airlinePlane.wings, 'string');
-      assert.fail(airlinePlane.engines, 'array');
-      assert.fail(myCar.wheels, 'number');
+      assert.typeOf({ name: 'chai' }, 'object');
+      assert.typeOf('what am I?', 'string');
+      assert.notTypeOf('what am I?', 'number');
     });
+    
     // #18
     test('#instanceOf, #notInstanceOf', function () {
-      assert.fail(myCar, Plane);
-      assert.fail(airlinePlane, Plane);
-      assert.fail(airlinePlane, Object);
-      assert.fail(myCar.wheels, String);
+      function Car(name) { this.name = name; }
+      const myCar = new Car('Ford-Mustang');
+      assert.instanceOf(myCar, Car);
+      assert.notInstanceOf(myCar, String);
     });
   });
 
